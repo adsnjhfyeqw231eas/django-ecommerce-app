@@ -14,10 +14,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 8000
-COPY runApp.sh .
-RUN chmod +x runApp.sh
 COPY . ./
-
+RUN chmod +x runApp.sh
 
 # stage 2:
 FROM mysql:9.5
