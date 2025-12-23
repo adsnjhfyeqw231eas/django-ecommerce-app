@@ -10,6 +10,8 @@ services:
     depends_on:
         backend-db:
           condition: service_healthy
+    env_file:
+      - .env
     environment:
       DB_HOST: backend-db
       DB_PORT: 3306
