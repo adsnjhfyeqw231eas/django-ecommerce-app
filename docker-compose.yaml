@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      target: builder
+    ports:
+      - "8000:8000"
+    depends_on:
+        backend-db:
+          condition: service_healthy
+    environment:
+      DB_HOST: backend-db
+      DB_PORT: 3306
+      DB_NAME: ecommerce
+      DB_USER: ecomuser
+      DB_PASSWORD: password
+    entrypoint: ["/app/runApp.sh"]
+
+  backend-db:
+    image: mysql:9.5
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: ecommerce
+      MYSQL_USER: ecomuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  db_data:
