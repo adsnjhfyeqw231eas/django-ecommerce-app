@@ -13,6 +13,6 @@ docker-compose down -v
 docker-compose build --no-cache
 docker-compose up
 
-access app at: http://ec2-ip:3000/admin
+access app at: http://ec2-ip:8000/admin
 note: admin/ and api/ are 2 initial routing point to the app per dev code.
 api/ endpoint works, after admin has added a product/order etc.
